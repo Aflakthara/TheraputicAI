@@ -19,6 +19,257 @@ st.set_page_config(
     layout="wide"
 )
 
+# Custom dark theme styling
+st.markdown("""
+<style>
+:root {
+    --primary: #6366f1;
+    --primary-dark: #4f46e5;
+    --bg-primary: #0f172a;
+    --bg-secondary: #1e293b;
+    --bg-tertiary: #334155;
+    --text-primary: #f1f5f9;
+    --text-secondary: #cbd5e1;
+    --border-color: #475569;
+    --success: #10b981;
+    --warning: #f59e0b;
+    --error: #ef4444;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html, body, [data-testid="stAppViewContainer"] {
+    background-color: var(--bg-primary) !important;
+    color: var(--text-primary) !important;
+}
+
+[data-testid="stSidebar"] {
+    background-color: var(--bg-secondary) !important;
+    border-right: 1px solid var(--border-color);
+}
+
+[data-testid="stSidebar"] [data-testid="stMarkdownContainer"] {
+    color: var(--text-primary) !important;
+}
+
+/* Chat messages styling */
+[data-testid="stChatMessage"] {
+    background-color: var(--bg-secondary) !important;
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    padding: 16px !important;
+    margin-bottom: 12px;
+    transition: all 0.2s ease;
+}
+
+[data-testid="stChatMessage"]:hover {
+    border-color: var(--primary);
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.1);
+}
+
+[data-testid="stChatMessage"] [data-testid="stMarkdownContainer"] {
+    color: var(--text-primary) !important;
+}
+
+/* User message styling */
+[data-testid="stChatMessageUser"] {
+    background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%) !important;
+}
+
+[data-testid="stChatMessageUser"] [data-testid="stMarkdownContainer"] {
+    color: #ffffff !important;
+}
+
+/* Assistant message styling */
+[data-testid="stChatMessageAssistant"] {
+    background-color: var(--bg-secondary) !important;
+}
+
+/* Button styling */
+button[kind="primary"] {
+    background-color: var(--primary) !important;
+    color: #ffffff !important;
+    border: none !important;
+    border-radius: 8px !important;
+    font-weight: 600 !important;
+    transition: all 0.2s ease !important;
+}
+
+button[kind="primary"]:hover {
+    background-color: var(--primary-dark) !important;
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3) !important;
+}
+
+button[kind="primary"]:active {
+    transform: scale(0.98) !important;
+}
+
+/* Input styling */
+[data-testid="stChatInputContainer"] input {
+    background-color: var(--bg-secondary) !important;
+    color: var(--text-primary) !important;
+    border: 1px solid var(--border-color) !important;
+    border-radius: 8px !important;
+    padding: 12px 16px !important;
+    font-size: 14px !important;
+    transition: all 0.2s ease !important;
+}
+
+[data-testid="stChatInputContainer"] input:focus {
+    border-color: var(--primary) !important;
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1) !important;
+}
+
+/* Select/dropdown styling */
+[data-testid="stSelectbox"] {
+    background-color: var(--bg-secondary) !important;
+}
+
+[data-testid="stSelectbox"] select {
+    background-color: var(--bg-secondary) !important;
+    color: var(--text-primary) !important;
+    border: 1px solid var(--border-color) !important;
+    border-radius: 8px !important;
+}
+
+[data-testid="stSelectbox"] select option {
+    background-color: var(--bg-secondary) !important;
+    color: var(--text-primary) !important;
+}
+
+/* Expander styling */
+[data-testid="stExpander"] {
+    background-color: var(--bg-secondary) !important;
+    border: 1px solid var(--border-color) !important;
+    border-radius: 8px !important;
+    overflow: hidden;
+}
+
+[data-testid="stExpander"] summary {
+    color: var(--text-primary) !important;
+    padding: 12px !important;
+}
+
+[data-testid="stExpanderDetails"] {
+    background-color: var(--bg-tertiary) !important;
+    padding: 12px !important;
+}
+
+/* Alert/error/info/warning styling */
+[data-testid="stAlert"] {
+    background-color: rgba(99, 102, 241, 0.1) !important;
+    border: 1px solid var(--primary) !important;
+    border-radius: 8px !important;
+    color: var(--text-primary) !important;
+}
+
+[data-testid="stAlert"] [role="alert"] {
+    color: var(--text-primary) !important;
+}
+
+/* Error styling */
+[data-testid="stAlert"] [class*="error"] {
+    background-color: rgba(239, 68, 68, 0.1) !important;
+    border-color: var(--error) !important;
+}
+
+[data-testid="stAlert"] [class*="warning"] {
+    background-color: rgba(245, 158, 11, 0.1) !important;
+    border-color: var(--warning) !important;
+}
+
+[data-testid="stAlert"] [class*="success"] {
+    background-color: rgba(16, 185, 129, 0.1) !important;
+    border-color: var(--success) !important;
+}
+
+/* Metric styling */
+[data-testid="stMetric"] {
+    background-color: var(--bg-secondary) !important;
+    border: 1px solid var(--border-color) !important;
+    border-radius: 8px !important;
+    padding: 16px !important;
+}
+
+[data-testid="stMetric"] [data-testid="stMetricLabel"] {
+    color: var(--text-secondary) !important;
+}
+
+[data-testid="stMetric"] [data-testid="stMetricValue"] {
+    color: var(--primary) !important;
+}
+
+/* Divider styling */
+hr {
+    border-color: var(--border-color) !important;
+}
+
+/* Heading styling */
+h1, h2, h3, h4, h5, h6 {
+    color: var(--text-primary) !important;
+}
+
+/* Markdown styling */
+[data-testid="stMarkdownContainer"] {
+    color: var(--text-primary) !important;
+}
+
+[data-testid="stMarkdownContainer"] a {
+    color: var(--primary) !important;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+[data-testid="stMarkdownContainer"] a:hover {
+    color: var(--primary-dark) !important;
+    text-decoration: underline;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--primary);
+}
+
+/* Spinner styling */
+[data-testid="stSpinner"] {
+    color: var(--primary) !important;
+}
+
+/* Animation for chat messages */
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+[data-testid="stChatMessage"] {
+    animation: slideIn 0.3s ease-out;
+}
+</style>
+""", unsafe_allow_html=True)
+
 # Initialize session state for chat history
 if "messages" not in st.session_state:
     st.session_state.messages = []
